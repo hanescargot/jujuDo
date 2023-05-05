@@ -62,17 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
   }
 
-  // Future<void> _loadServerData() async {
-  //   loveCollection.get().then((QuerySnapshot querySnapshot) {
-  //     querySnapshot.docs.forEach((doc) {
-  //       loveList.add(Love(
-  //           title: doc.toString(),
-  //           isFinished: doc["isFinished"],
-  //           image: doc["image"] ?? ""));
-  //     });
-  //   });
-  // }
-
   @override
   Widget build(BuildContext context) {
     CollectionReference loveCollection =
@@ -92,6 +81,21 @@ class _MyHomePageState extends State<MyHomePage> {
         'isFinished': love.isFinished,
         'image': love.image
       });
+    }
+
+    // Future<void> _loadServerData() async {
+    //   loveCollection.get().then((QuerySnapshot querySnapshot) {
+    //     querySnapshot.docs.forEach((doc) {
+    //       loveList.add(Love(
+    //           title: doc.toString(),
+    //           isFinished: doc["isFinished"],
+    //           image: doc["image"] ?? ""));
+    //     });
+    //   });
+    // }
+
+    Future<void> onDeleteBtnClicked(String doc) {
+      return loveCollection!.doc(doc).delete();
     }
 
     Future<void> onUploadBtnClicked() async {
@@ -129,18 +133,34 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-              Checkbox(
-                checkColor: Colors.white,
-                activeColor: primaryColor,
-                value: data['isFinished'],
-                onChanged: (value) {
-                  updateTodo(
-                      createdTime,
-                      Love(
-                          title: data['title'],
-                          isFinished: value as bool,
-                          image: data['image']));
-                },
+              Row(
+                children: [
+                  Checkbox(
+                    checkColor: Colors.white,
+                    activeColor: primaryColor,
+                    value: data['isFinished'],
+                    onChanged: (value) {
+                      updateTodo(
+                          createdTime,
+                          Love(
+                              title: data['title'],
+                              isFinished: value as bool,
+                              image: data['image']));
+                    },
+                  ),
+                  IconButton(
+                    onPressed: () {
+                      onDeleteBtnClicked(createdTime);
+                    },
+                    icon: Container(
+                      width: 2.w,
+                      child: Icon(
+                        Icons.delete_forever_sharp,
+                        color: Color(0xFFFF6E6E),
+                      ),
+                    ),
+                  )
+                ],
               ),
             ],
           ),
@@ -179,16 +199,15 @@ class _MyHomePageState extends State<MyHomePage> {
                 int listCount = 0; // snapshot.data!.docs.length;
 
                 return ListView(
-                  controller: _scrollController,
-                  reverse: true,
-                  children:
-                      snapshot.data!.docs.map((DocumentSnapshot document) {
-                    Map<String, dynamic> data =
-                        document.data()! as Map<String, dynamic>;
-                    listCount++;
-                    return todo(document.id, listCount, data);
-                  }).toList(),
-                );
+                    controller: _scrollController,
+                    reverse: false,
+                    children:
+                        snapshot.data!.docs.map((DocumentSnapshot document) {
+                      Map<String, dynamic> data =
+                          document.data()! as Map<String, dynamic>;
+                      listCount++;
+                      return todo(document.id, listCount, data);
+                    }).toList());
 
                 // ListView.builder(
                 //   itemCount: loveList.length,
