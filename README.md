@@ -2,15 +2,6 @@
 
 todo list for  love
 
-## Getting Started
+<img width="400" alt="LottoImg" src="https://github.com/hanescargot/jujuDo/assets/84563848/e29a40f7-e68b-459c-a469-4b636475a980">
+<img width="400" alt="LottoImg" src="https://github.com/hanescargot/jujuDo/assets/84563848/9b1c6ea4-e9c8-4506-838f-2b301b6bf716">
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
